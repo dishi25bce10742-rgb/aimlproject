@@ -1,0 +1,218 @@
+"""
+Smart Route Planner — demonstrates BFS, DFS, and A* search
+on a city map graph. Covers: search strategies, intelligent agents,
+problem formulation from your AI syllabus.
+"""
+
+import heapq
+from collections import deque
+import math
+
+# ── 1. City Map (Graph) ───────────────────────────────────────────────────────
+# Each node is a city. Edges have distances (km).
+# Coordinates are used by A* heuristic (straight-line distance).
+
+CITY_COORDS = {
+    "Mumbai":    (19.07, 72.87),
+    "Pune":      (18.52, 73.85),
+    "Nashik":    (19.99, 73.79),
+    "Aurangabad":(19.87, 75.34),
+    "Nagpur":    (21.14, 79.08),
+    "Amravati":  (20.93, 77.75),
+    "Solapur":   (17.68, 75.90),
+    "Kolhapur":  (16.70, 74.24),
+    "Nanded":    (19.15, 77.31),
+    "Latur":     (18.40, 76.56),
+}
+
+# (city1, city2, distance_km)
+ROADS = [
+    ("Mumbai",    "Pune",       149),
+    ("Mumbai",    "Nashik",     167),
+    ("Pune",      "Nashik",     212),
+    ("Pune",      "Solapur",    247),
+    ("Pune",      "Aurangabad", 234),
+    ("Nashik",    "Aurangabad", 187),
+    ("Aurangabad","Nagpur",     502),
+    ("Aurangabad","Nanded",     270),
+    ("Nagpur",    "Amravati",   150),
+    ("Amravati",  "Nanded",     300),
+    ("Solapur",   "Latur",      110),
+    ("Solapur",   "Kolhapur",   228),
+    ("Nanded",    "Latur",      138),
+    ("Kolhapur",  "Pune",       228),
+]
+
+def build_graph(roads):
+    graph = {}
+    for city in CITY_COORDS:
+        graph[city] = []
+    for a, b, dist in roads:
+        graph[a].append((b, dist))
+        graph[b].append((a, dist))
+    return graph
+
+# ── 2. Heuristic for A* ───────────────────────────────────────────────────────
+
+def haversine(city1, city2):
+    """Straight-line distance between two cities using lat/lon (km)."""
+    lat1, lon1 = CITY_COORDS[city1]
+    lat2, lon2 = CITY_COORDS[city2]
+    R = 6371
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
+    return R * 2 * math.asin(math.sqrt(a))
+
+# ── 3. Search Algorithms ──────────────────────────────────────────────────────
+
+def bfs(graph, start, goal):
+    """Breadth-First Search — finds path with fewest stops."""
+    queue   = deque([(start, [start], 0)])
+    visited = set()
+    nodes_explored = 0
+
+    while queue:
+        city, path, cost = queue.popleft()
+        nodes_explored += 1
+
+        if city == goal:
+            return path, cost, nodes_explored
+
+        if city in visited:
+            continue
+        visited.add(city)
+
+        for neighbor, dist in graph[city]:
+            if neighbor not in visited:
+                queue.append((neighbor, path + [neighbor], cost + dist))
+
+    return None, float("inf"), nodes_explored
+
+
+def dfs(graph, start, goal):
+    """Depth-First Search — explores deep paths first (not optimal)."""
+    stack   = [(start, [start], 0)]
+    visited = set()
+    nodes_explored = 0
+
+    while stack:
+        city, path, cost = stack.pop()
+        nodes_explored += 1
+
+        if city == goal:
+            return path, cost, nodes_explored
+
+        if city in visited:
+            continue
+        visited.add(city)
+
+        for neighbor, dist in graph[city]:
+            if neighbor not in visited:
+                stack.append((neighbor, path + [neighbor], cost + dist))
+
+    return None, float("inf"), nodes_explored
+
+
+def astar(graph, start, goal):
+    """A* Search — finds shortest distance path using heuristic."""
+    # Priority queue: (f = g + h, g, city, path)
+    pq      = [(haversine(start, goal), 0, start, [start])]
+    visited = {}
+    nodes_explored = 0
+
+    while pq:
+        f, g, city, path = heapq.heappop(pq)
+        nodes_explored += 1
+
+        if city == goal:
+            return path, g, nodes_explored
+
+        if city in visited and visited[city] <= g:
+            continue
+        visited[city] = g
+
+        for neighbor, dist in graph[city]:
+            new_g = g + dist
+            new_f = new_g + haversine(neighbor, goal)
+            heapq.heappush(pq, (new_f, new_g, neighbor, path + [neighbor]))
+
+    return None, float("inf"), nodes_explored
+
+# ── 4. Route Planner Agent ────────────────────────────────────────────────────
+
+class RoutePlannerAgent:
+    """
+    Goal-based intelligent agent.
+    Percept : current location + destination
+    Goal    : reach destination with minimum distance
+    Action  : choose next city to move to
+    """
+
+    def __init__(self, graph):
+        self.graph = graph
+
+    def plan(self, start, goal, algorithm="astar"):
+        print(f"\n{'='*55}")
+        print(f"  ROUTE PLANNER AGENT")
+        print(f"{'='*55}")
+        print(f"  From      : {start}")
+        print(f"  To        : {goal}")
+        print(f"  Algorithm : {algorithm.upper()}")
+        print(f"{'='*55}")
+
+        algos = {"bfs": bfs, "dfs": dfs, "astar": astar}
+        if algorithm not in algos:
+            print("Unknown algorithm. Choose: bfs, dfs, astar")
+            return
+
+        path, cost, explored = algos[algorithm](self.graph, start, goal)
+
+        if path:
+            print(f"\n  Route     : {' → '.join(path)}")
+            print(f"  Distance  : {cost} km")
+            print(f"  Stops     : {len(path) - 1}")
+            print(f"  Nodes explored: {explored}")
+        else:
+            print("  No route found.")
+        return path, cost
+
+    def compare_all(self, start, goal):
+        """Run all 3 algorithms and compare results."""
+        print(f"\n{'='*55}")
+        print(f"  ALGORITHM COMPARISON: {start} → {goal}")
+        print(f"{'='*55}")
+        print(f"  {'Algorithm':<10} {'Distance':>10} {'Stops':>7} {'Explored':>10}  Path")
+        print(f"  {'-'*50}")
+
+        for name, fn in [("BFS", bfs), ("DFS", dfs), ("A*", astar)]:
+            path, cost, explored = fn(self.graph, start, goal)
+            route_str = " → ".join(path) if path else "No path"
+            print(f"  {name:<10} {cost:>7} km  {len(path)-1:>5}   {explored:>8}  {route_str}")
+
+# ── 5. Main ───────────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    graph = build_graph(ROADS)
+    agent = RoutePlannerAgent(graph)
+
+    print("\nAvailable cities:")
+    for i, city in enumerate(CITY_COORDS):
+        print(f"  [{i}] {city}")
+
+    cities = list(CITY_COORDS.keys())
+
+    while True:
+        try:
+            s = int(input("\nEnter index of START city: "))
+            g = int(input("Enter index of GOAL city : "))
+            start, goal = cities[s], cities[g]
+            break
+        except (ValueError, IndexError):
+            print("Invalid input. Try again.")
+
+    # Compare all algorithms
+    agent.compare_all(start, goal)
+
+    # Detailed A* result
+    agent.plan(start, goal, algorithm="astar")
