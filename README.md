@@ -1,2 +1,75 @@
 # aimlproject
 Smart route planner
+# Smart Route Planner using AI Search Strategies :- 
+
+A city route planner that uses classical AI search algorithms (BFS, DFS, and A*) 
+to find the optimal path between cities. 
+
+##  Real-World Problem
+
+Every day, millions of people need to navigate routes from one place to another. Apps like Google Maps solve this using intelligent search, not by checking every possible route, but by using smart strategies that prioritize the most promising paths first.
+
+This project simulates that exact problem on a real Indian city road network, and 
+compares three AI search strategies to show why A* is the most efficient.
+
+## AI Concepts Used
+
+ Concept  and How it's applied 
+
+Intelligent Agent - The route planner is a goal-based agent that perceives start/goal cities and acts by returning the best route 
+PEAS Model - Performance: shortest distance. Environment: city road graph. Actuators: route output. Sensors: user city input 
+BFS - Explores all cities level by level and guarantees fewest stops 
+DFS - Explores deep paths first (not optimal), shown for comparison 
+A* Search - Uses Haversine distance as admissible heuristic, guarantees shortest distance with fewest nodes explored 
+Heuristic - Straight-line (Haversine) distance between cities, never overestimates, so A* remains optimal 
+
+##  Project Structure 
+route-planner/
+route_planner.py   # Main code — graph, algorithms, agent
+README.md
+requirements.txt
+## Getting Started
+Bash:-
+# 1. Clone the repo
+git clone https://github.com/YOUR_USERNAME/route-planner.git
+cd route-planner
+
+# 2. No external libraries needed — uses Python stdlib only
+python route_planner.py
+##  City Network
+The map covers 10 major cities in Maharashtra, India connected by real road distances:
+
+Mumbai ── Pune ── Solapur ── Latur ── Nanded
+Nashik   Kolhapur                   Amravati
+ 
+Aurangabad ──────────────────────── Nagpur
+
+##  Algorithm Comparison
+
+For the route - Mumbai → Nagpur:
+
+| Algorithm | Distance | Stops | Nodes Explored |
+| BFS       | 1052 km  | 3     | 7              |
+| DFS       | 1203 km  | 4     | 6              |
+| A*        | 1052 km  | 3     | 5              |
+
+> A* finds the same optimal route as BFS but explores fewer nodes — 
+> this is the power of a good heuristic.
+
+##  Why A* Wins
+
+- BFS guarantees the shortest number of hops but ignores actual distances
+- DFS is fast to implement but finds suboptimal routes
+- A* combines the actual road distance travelled (`g`) with the straight-line 
+  distance remaining (`h`) to always expand the most promising city first
+```
+f(n) = g(n) + h(n)
+     = distance travelled so far + haversine distance to goal
+
+The Haversine heuristic is **admissible** (never overestimates the true remaining 
+distance), which guarantees A* always finds the optimal route.
+
+
+
+
+
