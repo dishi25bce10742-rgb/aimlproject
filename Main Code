@@ -13,16 +13,16 @@ import math
 # Coordinates are used by A* heuristic (straight-line distance).
 
 CITY_COORDS = {
-    "Mumbai":    (19.07, 72.87),
-    "Pune":      (18.52, 73.85),
-    "Nashik":    (19.99, 73.79),
-    "Aurangabad":(19.87, 75.34),
-    "Nagpur":    (21.14, 79.08),
-    "Amravati":  (20.93, 77.75),
-    "Solapur":   (17.68, 75.90),
-    "Kolhapur":  (16.70, 74.24),
-    "Nanded":    (19.15, 77.31),
-    "Latur":     (18.40, 76.56),
+    "Bhopal":       (23.26, 77.41),
+    "Indore":       (22.72, 75.86),
+    "Jabalpur":     (23.18, 79.95),
+    "Gwalior":      (26.22, 78.18),
+    "Ujjain":       (23.18, 75.78),
+    "Sagar":        (23.84, 78.74),
+    "Rewa":         (24.53, 81.30),
+    "Satna":        (24.60, 80.83),
+    "Dewas":        (22.96, 76.05),
+    "Chhindwara":   (22.06, 78.94),
 }
 
 # (city1, city2, distance_km)
