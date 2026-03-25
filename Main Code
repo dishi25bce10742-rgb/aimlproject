@@ -27,20 +27,21 @@ CITY_COORDS = {
 
 # (city1, city2, distance_km)
 ROADS = [
-    ("Mumbai",    "Pune",       149),
-    ("Mumbai",    "Nashik",     167),
-    ("Pune",      "Nashik",     212),
-    ("Pune",      "Solapur",    247),
-    ("Pune",      "Aurangabad", 234),
-    ("Nashik",    "Aurangabad", 187),
-    ("Aurangabad","Nagpur",     502),
-    ("Aurangabad","Nanded",     270),
-    ("Nagpur",    "Amravati",   150),
-    ("Amravati",  "Nanded",     300),
-    ("Solapur",   "Latur",      110),
-    ("Solapur",   "Kolhapur",   228),
-    ("Nanded",    "Latur",      138),
-    ("Kolhapur",  "Pune",       228),
+    ("Bhopal",     "Indore",     195),
+    ("Bhopal",     "Sagar",      180),
+    ("Bhopal",     "Jabalpur",   330),
+    ("Bhopal",     "Gwalior",    415),
+    ("Indore",     "Ujjain",      55),
+    ("Indore",     "Dewas",       35),
+    ("Indore",     "Chhindwara", 255),
+    ("Ujjain",     "Dewas",       40),
+    ("Ujjain",     "Bhopal",     185),
+    ("Sagar",      "Jabalpur",   175),
+    ("Sagar",      "Gwalior",    265),
+    ("Jabalpur",   "Satna",      175),
+    ("Jabalpur",   "Chhindwara", 130),
+    ("Satna",      "Rewa",        45),
+    ("Gwalior",    "Rewa",       325),
 ]
 
 def build_graph(roads):
