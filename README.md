@@ -56,7 +56,7 @@ For the route - Mumbai → Nagpur:
 > A* finds the same optimal route as BFS but explores fewer nodes — 
 > this is the power of a good heuristic.
 
-##  Why A* Wins
+##  Why A* Wins :-
 
 - BFS guarantees the shortest number of hops but ignores actual distances
 - DFS is fast to implement but finds suboptimal routes
