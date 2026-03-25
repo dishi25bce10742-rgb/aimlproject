@@ -1,1 +1,5 @@
+Introduction
+Navigation is one of the oldest and one of the most common problems faced by humans. From ancient travellers using stars to modern travellers relying on Google Maps, finding the fastest or shortest route between two points has always been a challenge. Today, this problem is solved using intelligent search algorithms, the same class of algorithms that form the backbone of classical AI.
+
+This project builds a Smart Route Planner that simulates how an AI agent navigates a city road network. Given an initial city and a destination, the agent finds the optimal route using three search strategies: Breadth-First Search (BFS), Depth-First Search (DFS), and A* Search. The system is modelled on a real Indian city road network (Madhya Pradesh) and demonstrates how the choice of algorithm directly affects the quality, efficiency, and optimality of the solution.
 
