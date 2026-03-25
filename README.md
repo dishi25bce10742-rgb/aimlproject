@@ -37,21 +37,18 @@ cd route-planner
 # 2. No external libraries needed — uses Python stdlib only
 python route_planner.py
 ##  City Network
-The map covers 10 major cities in Maharashtra, India connected by real road distances:
+The map covers 10 major cities in Madhya Pradesh, India connected by real road distances:
 
-Mumbai ── Pune ── Solapur ── Latur ── Nanded
-Nashik   Kolhapur                   Amravati
- 
-Aurangabad ──────────────────────── Nagpur
+Bhopal, Indore, Jabalpur, Gwalior, Ujjain, Sagar, Rewa, Satna, Dewas, Chhindwara
 
 ##  Algorithm Comparison
 
-For the route - Mumbai → Nagpur:
+For the route - Indore → Jabalpur:
 
 | Algorithm | Distance | Stops | Nodes Explored |
-| BFS       | 1052 km  | 3     | 7              |
-| DFS       | 1203 km  | 4     | 6              |
-| A*        | 1052 km  | 3     | 5              |
+| BFS       | 525 km  | 2     | 7              |
+| DFS       | 385 km  | 2     | 3              |
+| A*        | 385 km  | 2     | 3              |
 
 > A* finds the same optimal route as BFS but explores fewer nodes — 
 > this is the power of a good heuristic.
