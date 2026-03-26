@@ -25,9 +25,11 @@ Heuristic - Straight-line (Haversine) distance between cities, never overestimat
 
 ##  Project Structure 
 route-planner/
+
 route_planner.py   # Main code — graph, algorithms, agent
+
 README.md
-requirements.txt
+
 ## Getting Started
 Bash:-
 # 1. Clone the repo
