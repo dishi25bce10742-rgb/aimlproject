@@ -71,5 +71,3 @@ distance), which guarantees A* always finds the optimal route.
 
 
 
-
-
