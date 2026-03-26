@@ -31,8 +31,8 @@ requirements.txt
 ## Getting Started
 Bash:-
 # 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/route-planner.git
-cd route-planner
+git clone https://github.com/dishi25bce10742-rgb/aimlproject.git
+cd aimlproject
 
 # 2. No external libraries needed — uses Python stdlib only
 python route_planner.py
