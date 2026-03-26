@@ -32,12 +32,14 @@ requirements.txt
 Bash:-
 # 1. Clone the repo
 git clone https://github.com/dishi25bce10742-rgb/aimlproject.git
+
 cd aimlproject
 # 2. No external libraries needed — uses Python stdlib only
 python Main Code.py
 
 ##  City Network
 The map covers 10 major cities in Madhya Pradesh, India connected by real road distances:
+
 Bhopal, Indore, Jabalpur, Gwalior, Ujjain, Sagar, Rewa, Satna, Dewas, Chhindwara
 
 ##  Algorithm Comparison
