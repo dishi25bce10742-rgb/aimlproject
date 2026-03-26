@@ -63,7 +63,9 @@ DFS may give suboptimal results
 
 A* combines:
 f(n) = g(n) + h(n)
+
 g(n): distance travelled
+
 h(n): estimated distance (Haversine)
 
 Heuristic is admissible → guarantees optimal path
