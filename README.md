@@ -1,5 +1,5 @@
-# aimlproject
-Smart route planner
+# Smart Route Planner
+A city route planner that uses classical AI search algorithms (BFS, DFS, and A*) to find the optimal path between cities.
 # Smart Route Planner using AI Search Strategies :- 
 
 A city route planner that uses classical AI search algorithms (BFS, DFS, and A*) 
@@ -56,18 +56,16 @@ For the route - Indore → Jabalpur:
 > A* finds the same optimal route as BFS but explores fewer nodes — 
 > this is the power of a good heuristic.
 
-##  Why A* Wins :-
+##  Why A* Wins
+BFS ignores actual distances
 
-- BFS guarantees the shortest number of hops but ignores actual distances
-- DFS is fast to implement but finds suboptimal routes
-- A* combines the actual road distance travelled (`g`) with the straight-line 
-  distance remaining (`h`) to always expand the most promising city first
-```
+DFS may give suboptimal results
+
+A* combines:
 f(n) = g(n) + h(n)
-     = distance travelled so far + haversine distance to goal
+g(n): distance travelled
+h(n): estimated distance (Haversine)
 
-The Haversine heuristic is **admissible** (never overestimates the true remaining 
-distance), which guarantees A* always finds the optimal route.
-
+Heuristic is admissible → guarantees optimal path
 
 
